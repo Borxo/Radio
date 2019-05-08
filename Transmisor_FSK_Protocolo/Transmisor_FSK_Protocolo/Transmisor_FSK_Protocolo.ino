@@ -1,7 +1,7 @@
 /*
- Name:		Transmisor_FSK_Protocolo.ino
- Created:	03/04/2019 
- Author:	borxo
+ Name:		Receptor_FSK_Protocolo.ino
+ Created:	03/05/2019
+ Author:	Borxo García
 */
 
 #define data 5

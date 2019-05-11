@@ -14,6 +14,7 @@ unsigned char resultado = 0b11111111;
 unsigned char ResultadoFinal = 0b11111111;
 unsigned char R = 0;
 int z = 0;
+
 void setup()
 {
 	Serial.begin(9600);
@@ -25,10 +26,11 @@ void loop()
 {
 	R = 0;
 	z = 0;
-	RecibirByte();
+	RecibirByte(); //lee si se mandan datos 
+
 	if (pulso > 0)
 	{
-		while (z < 7)
+		while (z < 7) //Agrupa los caracteres en una variable de 8 bit 
 		{
 			RecibirByte();
 			R = resultado;
@@ -36,43 +38,29 @@ void loop()
 		}
 	}
 
-	if ((R >= 'A'&& R <= 'Z') || (R >= 'a' && R <= 'z'))
+	if ((R >= 'A'&& R <= 'Z') || (R >= 'a' && R <= 'z'))  // Analiza si es un caracter valido, es decir, una letra. 
 	{
 		if (pulso > 0)
 		{
-			Serial.print((char)R);
+			Serial.print((char)R); // imprime la letra 
 		}
 	}
 	else if (R == '\r')
 	{
-		Serial.println("");
+		Serial.println("");  //Si es un intro lo omite 
 	}
 	if (R == ' ')
 	{
-		Serial.print(" ");
+		Serial.print(" ");   // Si es un espacio le pone . 
 	}
-
-
-
-
 }
 
-void RecibirByte()
+void RecibirByte()   //Funcion de recibir el codigo. 
 {
-
 	fin = RecibirDato();
-	//Serial.print("fin: ");
-	//Serial.print(fin);
-	//Serial.print("    ");
 	resultado = resultado >> 1;
 	resultado = (fin * 128) + resultado;
-	// Serial.print("Resultado: ");
-	 //Serial.println(resultado,BIN);
-
 }
-
-
-
 
 
 int RecibirDato()

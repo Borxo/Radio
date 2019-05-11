@@ -8,11 +8,11 @@
 
 void setup()
 {
-	pinMode(data, OUTPUT);
+	pinMode(data, OUTPUT); // Pin de salida 1Khz
 }
 
 void loop()
-{
+{   
 	digitalWrite(data, HIGH);
 	delay(1);
 	digitalWrite(data, LOW);

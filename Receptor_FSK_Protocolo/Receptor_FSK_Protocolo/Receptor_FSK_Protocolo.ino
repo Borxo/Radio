@@ -22,9 +22,9 @@ void setup()
 
 void loop()
 {
-	RecibirDato();
+	RecibirDato(); // Se llama a la función dato//
 
-	switch (dato)
+	switch (dato) // Dependiendo de la variable dato se enciende un led o otro. 
 	{
 	case 0:
 		digitalWrite(LedRojo, HIGH);
@@ -45,36 +45,17 @@ void loop()
 	Serial.println(dato);
 }
 
-
-void EnviarBit(int dato)
-{
-	switch (dato)
-	{
-	case 0:
-
-		digitalWrite(data, HIGH);
-		//delay(2000);
-		break;
-
-	case 1:
-
-		digitalWrite(data, LOW);
-		//delay(3000);
-		break;
-	}
-}
-
 void RecibirDato()
 {
-	pulso = pulseIn(data, HIGH);
-	Tiempo = pulso / 1000;
+	pulso = pulseIn(data, HIGH); //Lee el pin 
+	Tiempo = pulso / 1000; // COnvierte el tiempo en ms
 
 	if (Tiempo <= 1.5)
 	{
-		dato = 1;
+		dato = 1; // Cambia la variable dato a 1 
 	}
 	else if (Tiempo > 0)
 	{
-		dato = 0;
+		dato = 0; // Cambia la variable dato a 0
 	}
 }

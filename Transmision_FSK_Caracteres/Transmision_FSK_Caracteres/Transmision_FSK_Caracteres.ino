@@ -8,63 +8,33 @@
 #define Button 8
 
 int dato = 0;
-float pulso = 0;
-float Tiempo = 0;
-int estado = 0;
-char final = 0;
 char texto;
 unsigned char mask = 0b000000001;
 unsigned char caracter;
+
 void setup()
 {
 	Serial.begin(9600);
 	pinMode(data, OUTPUT);
 	pinMode(Button, INPUT);
-	Serial.println("holaaaaa");
 	Serial.println("Caracter");
 }
 
 void loop()
 {
 
-	if (Serial.available())
+	if (Serial.available()) //Espera a que se escriba en el monitor serie
 	{
 
-		texto = Serial.read();
-		EnviarByte(texto);
+		texto = Serial.read();  //Lee lo escrito y lo carga en la variable texto. 
+		EnviarByte(texto);      //Envia los caracteres a la variable EnviarByte. 
 		Serial.println("Enviado");
-
-		/*if (texto !='\r')
-		{
-		//Serial.print(texto);
-		EnviarByte(texto);
-		}
-		else if(texto =='\r')
-		{
-		  Serial.println("Enviado");
-		}*/
 	}
-
-
-
-	/*estado = digitalRead(Button);
-	switch (estado)
-	{
-	case 0:
-	  EnviarBit(0);
-	  Serial.print("0");
-	  break;
-
-	case 1:
-	  EnviarBit(1);
-	  Serial.print("1");
-	  break;
-	}*/
 }
 
-void EnviarByte(char Caracter)
+void EnviarByte(char Caracter) // Convierte el caracter de 8 bit en serie. 
 {
-	//Serial.print(Caracter,BIN);
+	
 	for (int i = 0; i < 8; i++)
 	{
 		if (Caracter&mask)
@@ -78,23 +48,15 @@ void EnviarByte(char Caracter)
 			Serial.print("0");
 		}
 		Caracter = Caracter >> 1;
-		//delay(200);
+		
 	}
 
 	Serial.println("FIN");
 
 }
 
-void RecibirByte()
-{
-	for (int i = 0; i < 8; i++)
-	{
-		RecibirDato();
-		final = dato + (final << 1);
-	}
-	Serial.print(final);
-}
-void EnviarBit(int dato)
+
+void EnviarBit(int dato)  // Crea los o y 1 segun el protocolo anterior. 
 {
 	switch (dato)
 	{
@@ -113,20 +75,5 @@ void EnviarBit(int dato)
 		digitalWrite(data, LOW);
 		delay(1);
 		break;
-	}
-}
-
-void RecibirDato()
-{
-	pulso = pulseIn(data, HIGH);
-	Tiempo = pulso / 1000;
-
-	if (Tiempo <= 1.5)
-	{
-		dato = 1;
-	}
-	else if (Tiempo > 0)
-	{
-		dato = 0;
 	}
 }

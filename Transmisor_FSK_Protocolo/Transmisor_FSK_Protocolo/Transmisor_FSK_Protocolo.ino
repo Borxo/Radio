@@ -7,9 +7,6 @@
 #define data 5
 #define Button 8
 
-int dato = 0;
-float pulso = 0;
-float Tiempo = 0;
 int estado = 0;
 
 void setup()
@@ -17,21 +14,20 @@ void setup()
 	Serial.begin(9600);
 	pinMode(data, OUTPUT);
 	pinMode(Button, INPUT);
-	Serial.print("holaaaaa");
 }
 
 void loop()
 {
-	estado = digitalRead(Button);
+	estado = digitalRead(Button);  //Lee el pin del boton
 	switch (estado)
 	{
 	case 0:
-		EnviarBit(0);
+		EnviarBit(0);  //Envia un 0
 		Serial.print("0");
 		break;
 
 	case 1:
-		EnviarBit(1);
+		EnviarBit(1);  //Envia un 1
 		Serial.print("1");
 		break;
 	}
@@ -55,20 +51,5 @@ void EnviarBit(int dato)
 		digitalWrite(data, LOW);
 		delay(1);
 		break;
-	}
-}
-
-void RecibirDato()
-{
-	pulso = pulseIn(data, HIGH);
-	Tiempo = pulso / 1000;
-
-	if (Tiempo <= 1.5)
-	{
-		dato = 1;
-	}
-	else if (Tiempo > 0)
-	{
-		dato = 0;
 	}
 }
